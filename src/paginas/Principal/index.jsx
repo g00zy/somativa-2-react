@@ -50,6 +50,16 @@ function Principal()
 
           }
 
+          else 
+          {
+            setUsuario(
+            {
+              nome: 'Não encontrado',
+              sobrenome: 'Não encontrado',
+              nascimento: 'Não encontrado'
+            });
+          }
+
           setCarregando(false);
         }
       );
@@ -68,46 +78,50 @@ function Principal()
 
   }
 
-  if (carregando) 
-  {
-
-    return (
-      <p>
-        Carregando...
-      </p>
-    );
-
-  }
-
   return (
-    <div>
+    <div className="page-shell">
+      <div className="auth-card">
+        <span className="badge">Principal</span>
 
-      <h1>Principal</h1>
+        <h1 className="auth-title">Perfil do usuário</h1>
 
-      {usuario && (
-        <div>
+        <p className="auth-subtitle">
+          Estes são os dados recuperados do Firestore com base no UID do
+          usuário autenticado no Firebase Authentication.
+        </p>
 
-          <p>
-            Nome: {usuario.nome}
-          </p>
+        {usuario && (
+          <div className="profile-box">
+            <div className="info-card">
+              <span className="info-label">Nome</span>
+              <span className="info-value">{usuario.nome}</span>
+            </div>
 
-          <p>
-            Sobrenome: {usuario.sobrenome}
-          </p>
+            <div className="info-card">
+              <span className="info-label">Sobrenome</span>
+              <span className="info-value">{usuario.sobrenome}</span>
+            </div>
 
-          <p>
-            Data de nascimento:
-            {' '}
-            {usuario.nascimento}
-          </p>
+            <div className="info-card">
+              <span className="info-label">Data de nascimento</span>
+              <span className="info-value">{usuario.nascimento}</span>
+            </div>
+          </div>
+        )}
 
+        <div className="actions">
+          <button
+            className="auth-button secondary"
+            onClick={() => navigate('/')}
+          >
+            Voltar ao login
+          </button>
+
+          <button className="auth-button" onClick={sair}>
+            Sair
+          </button>
         </div>
-      )}
-
-      <button onClick={sair}>
-        Sair
-      </button>
-
+      </div>
     </div>
   );
 }
